@@ -1,0 +1,14 @@
+{
+  "extends": ["react-app", "airbnb", "prettier"],
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [".storybook/**", "**/*.stories.js"]
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-one-expression-per-line": "off"
+  }
+}
