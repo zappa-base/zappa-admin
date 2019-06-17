@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Label, Segment } from 'semantic-ui-react';
 
-export function StatePrinter({ console, label, state }) {
-  if (console) {
-    console.log(state);
+export function StatePrinter({ shouldConsole, label, state }) {
+  if (shouldConsole) {
+    console.info(state);
   }
 
   return (
@@ -33,8 +33,8 @@ export function StatePrinter({ console, label, state }) {
 }
 
 StatePrinter.propTypes = {
-  console: PropTypes.bool,
   label: PropTypes.string,
+  shouldConsole: PropTypes.bool,
   state: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.bool,
@@ -45,7 +45,7 @@ StatePrinter.propTypes = {
 };
 
 StatePrinter.defaultProps = {
-  console: true,
+  shouldConsole: true,
   label: '',
   state: null
 };
