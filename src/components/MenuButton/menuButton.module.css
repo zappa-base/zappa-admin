@@ -1,0 +1,16 @@
+.buttonWrapper {
+  left: 0;
+  margin: 1em 0;
+  position: fixed;
+  top: 0;
+  transition: transform 0.5s ease;
+  z-index: 1000;
+}
+
+.opened {
+  transform: translateX(55px);
+}
+
+.closed {
+  transform: translateX(10px);
+}

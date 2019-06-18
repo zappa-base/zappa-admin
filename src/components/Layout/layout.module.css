@@ -1,0 +1,13 @@
+.grid {
+  min-height: 100vh;
+  padding: 2em !important;
+  transition: width 0.5s ease;
+}
+
+.opened {
+  width: calc(100% - 150px);
+}
+
+.closed {
+  width: 100%;
+}

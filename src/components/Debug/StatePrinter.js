@@ -12,13 +12,17 @@ export function StatePrinter({ shouldConsole, label, state }) {
       <Segment padded>
         <Label attached="top">{label || ''} State</Label>
         {(() => {
-          if (!state) return 'null';
+          if (typeof state !== 'boolean' && !state) return 'null';
 
           switch (typeof state) {
             case 'string':
             case 'number':
             case 'boolean':
-              return state;
+              return (
+                <div>
+                  <span>{`${state}`}</span>
+                </div>
+              );
             default:
               return Object.keys(state).map(key => (
                 <div>
