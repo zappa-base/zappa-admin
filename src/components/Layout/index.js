@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Menu, Sidebar, Grid } from 'semantic-ui-react';
-import { Route, Switch, Link, withRouter } from 'react-router-dom';
+import { Grid, Sidebar as SemanticSidebar } from 'semantic-ui-react';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
+import { HomePage } from '../../pages/HomePage';
 import { MenuButton } from '../MenuButton';
 import { MenuContext } from '../MenuContext';
-import { HomePage } from '../../pages/HomePage';
+import { Sidebar } from '../Sidebar';
 import { UsersPage } from '../../pages/UsersPage';
 
 import styles from './layout.module.css';
@@ -16,41 +17,9 @@ function Layout({ location: { pathname } }) {
       <MenuButton />
       <MenuContext.Consumer>
         {({ state }) => (
-          <Sidebar.Pushable>
-            <Sidebar
-              animation="push"
-              as={Menu}
-              direction="left"
-              icon="labeled"
-              inverted
-              vertical
-              visible={state.opened}
-              width="thin"
-            >
-              <Menu.Item>
-                <Menu.Menu>
-                  <Menu.Item>
-                    <div style={{ marginTop: '2em' }} />
-                  </Menu.Item>
-                </Menu.Menu>
-              </Menu.Item>
-              <Menu.Item>
-                <Menu.Header>Zappa-Admin</Menu.Header>
-                <Menu.Menu>
-                  <Menu.Item as={Link} to="/" active={pathname === '/'}>
-                    Home
-                  </Menu.Item>
-                  <Menu.Item
-                    as={Link}
-                    to="/users"
-                    active={pathname === '/users'}
-                  >
-                    Users
-                  </Menu.Item>
-                </Menu.Menu>
-              </Menu.Item>
-            </Sidebar>
-            <Sidebar.Pusher>
+          <SemanticSidebar.Pushable>
+            <Sidebar opened={state.opened} currentPathname={pathname} />
+            <SemanticSidebar.Pusher>
               <Grid
                 className={`${styles.grid} ${
                   state.opened ? styles.opened : styles.closed
@@ -68,8 +37,8 @@ function Layout({ location: { pathname } }) {
                   </Switch>
                 </Grid.Column>
               </Grid>
-            </Sidebar.Pusher>
-          </Sidebar.Pushable>
+            </SemanticSidebar.Pusher>
+          </SemanticSidebar.Pushable>
         )}
       </MenuContext.Consumer>
     </Fragment>
