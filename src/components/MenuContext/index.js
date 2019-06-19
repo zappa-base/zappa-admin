@@ -1,16 +1,14 @@
 import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function getInitialState() {
-  return {
-    opened: true
-  };
-}
+const initialState = {
+  opened: true
+};
 
-export const MenuContext = createContext(getInitialState());
+export const MenuContext = createContext(initialState);
 
 export function MenuContextProvider({ children }) {
-  const [state, setState] = useState(getInitialState());
+  const [state, setState] = useState(initialState);
 
   return (
     <MenuContext.Provider

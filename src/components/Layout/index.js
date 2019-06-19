@@ -11,7 +11,7 @@ import { UsersPage } from '../../pages/UsersPage';
 
 import styles from './layout.module.css';
 
-function Layout({ location: { pathname } }) {
+export function Layout({ location: { pathname } }) {
   return (
     <Fragment>
       <MenuButton />
@@ -28,12 +28,8 @@ function Layout({ location: { pathname } }) {
               >
                 <Grid.Column>
                   <Switch>
-                    <Route path="/" exact>
-                      <HomePage />
-                    </Route>
-                    <Route path="/users">
-                      <UsersPage />
-                    </Route>
+                    <Route component={HomePage} path="/" exact />
+                    <Route component={UsersPage} path="/users" />
                   </Switch>
                 </Grid.Column>
               </Grid>
