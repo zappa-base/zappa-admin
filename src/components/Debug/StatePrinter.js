@@ -24,8 +24,9 @@ export function StatePrinter({ shouldConsole, label, state }) {
                 </div>
               );
             default:
-              return Object.keys(state).map(key => (
-                <div>
+              return Object.keys(state).map((key, index) => (
+                /* eslint-disable-next-line react/no-array-index-key */
+                <div key={`${key}_${index}`}>
                   <span>{`${key} : ${state[key]}`}</span>
                 </div>
               ));
