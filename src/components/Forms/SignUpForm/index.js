@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Grid, Segment, Message, Header } from 'semantic-ui-react';
-import { StatePrinter } from '../Debug/StatePrinter';
+import { StatePrinter } from '../../Debug/StatePrinter';
 
 const intialState = {
   confirm: '',
