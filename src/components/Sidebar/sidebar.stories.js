@@ -10,9 +10,22 @@ import { ParagraphLoader } from '../Loaders/ParagraphLoader';
 storiesOf('Sidebar', module)
   .addDecorator(withKnobs)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
-  .add('default', () => (
+  .add('Not Authenticated', () => (
     <SemanticSidebar.Pushable as={Segment}>
       <Sidebar opened={boolean('Opened', true)} />
+      <SemanticSidebar.Pusher>
+        <div style={{ padding: 20 }}>
+          <ParagraphLoader />
+          <ParagraphLoader />
+          <ParagraphLoader />
+          <ParagraphLoader />
+        </div>
+      </SemanticSidebar.Pusher>
+    </SemanticSidebar.Pushable>
+  ))
+  .add('Authenticated', () => (
+    <SemanticSidebar.Pushable as={Segment}>
+      <Sidebar opened={boolean('Opened', true)} isAuth />
       <SemanticSidebar.Pusher>
         <div style={{ padding: 20 }}>
           <ParagraphLoader />

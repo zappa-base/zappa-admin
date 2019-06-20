@@ -3,13 +3,12 @@ import { Menu, Sidebar as SemanticSidebar } from 'semantic-ui-react';
 import React from 'react';
 import { buildSideBarItems } from '../../config/menu/buildSideBarItems';
 
-export function Sidebar({ currentPathname, opened }) {
+export function Sidebar({ currentPathname, opened, isAuth }) {
   return (
     <SemanticSidebar
       animation="push"
       as={Menu}
       direction="left"
-      icon="labeled"
       inverted
       vertical
       visible={opened}
@@ -24,19 +23,21 @@ export function Sidebar({ currentPathname, opened }) {
         </Menu.Menu>
       </Menu.Item>
       <Menu.Item>
-        <Menu.Header>Zappa-Admin</Menu.Header>
-        <Menu.Menu>{buildSideBarItems(currentPathname, true)}</Menu.Menu>
+        <Menu.Header as="h2">Zappa-Admin</Menu.Header>
       </Menu.Item>
+      {buildSideBarItems(currentPathname, isAuth)}
     </SemanticSidebar>
   );
 }
 
 Sidebar.propTypes = {
   currentPathname: PropTypes.string,
-  opened: PropTypes.bool
+  opened: PropTypes.bool,
+  isAuth: PropTypes.bool
 };
 
 Sidebar.defaultProps = {
   currentPathname: '/',
-  opened: true
+  opened: true,
+  isAuth: false
 };

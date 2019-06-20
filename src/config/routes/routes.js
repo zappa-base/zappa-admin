@@ -4,6 +4,7 @@ export const unauthenticated = [
   {
     component: asyncComponent(() => import('../../pages/LoginPage')),
     exact: false,
+    icon: 'sign-in',
     path: '/login',
     title: 'Login'
   }
@@ -21,6 +22,13 @@ export const authenticated = [
     exact: false,
     path: '/users',
     title: 'Users'
+  },
+  {
+    component: asyncComponent(() => import('../../pages/LogoutPage')),
+    exact: false,
+    icon: 'sign-out',
+    path: '/logout',
+    title: 'Logout'
   }
 ];
 
