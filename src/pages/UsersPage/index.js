@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Segment } from 'semantic-ui-react';
 import { Link, Route } from 'react-router-dom';
 
-export function UsersPage() {
+export default function UsersPage() {
   return (
     <Container fluid>
       <Segment>

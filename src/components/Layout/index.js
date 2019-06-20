@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { Grid, Sidebar as SemanticSidebar } from 'semantic-ui-react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
-import { HomePage } from '../../pages/HomePage';
+import HomePage from '../../pages/HomePage';
 import { MenuButton } from '../MenuButton';
 import { MenuContext } from '../Contexts/MenuContext';
 import { Sidebar } from '../Sidebar';
-import { UsersPage } from '../../pages/UsersPage';
+import UsersPage from '../../pages/UsersPage';
 
 import styles from './layout.module.css';
+import { buildRoutes } from '../../config/routes/buildRoutes';
 
 export function Layout({ location: { pathname } }) {
   return (
@@ -28,6 +29,7 @@ export function Layout({ location: { pathname } }) {
               >
                 <Grid.Column>
                   <Switch>
+                    {buildRoutes()}
                     <Route component={HomePage} path="/" exact />
                     <Route component={UsersPage} path="/users" />
                   </Switch>

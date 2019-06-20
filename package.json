@@ -65,6 +65,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@storybook/addon-actions": "^5.1.8",
     "@storybook/addon-knobs": "^5.1.8",
     "@storybook/addon-links": "^5.1.8",

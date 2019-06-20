@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Menu, Sidebar as SemanticSidebar } from 'semantic-ui-react';
 import React from 'react';
+import { buildSideBarItems } from '../../config/menu/buildSideBarItems';
 
 export function Sidebar({ currentPathname, opened }) {
   return (
@@ -25,18 +25,7 @@ export function Sidebar({ currentPathname, opened }) {
       </Menu.Item>
       <Menu.Item>
         <Menu.Header>Zappa-Admin</Menu.Header>
-        <Menu.Menu>
-          <Menu.Item as={Link} to="/" active={currentPathname === '/'}>
-            Home
-          </Menu.Item>
-          <Menu.Item
-            as={Link}
-            to="/users"
-            active={currentPathname === '/users'}
-          >
-            Users
-          </Menu.Item>
-        </Menu.Menu>
+        <Menu.Menu>{buildSideBarItems(currentPathname, true)}</Menu.Menu>
       </Menu.Item>
     </SemanticSidebar>
   );

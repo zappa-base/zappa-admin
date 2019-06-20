@@ -1,11 +1,11 @@
 import React from 'react';
 import { Container, Segment } from 'semantic-ui-react';
 
-export default function HomePage() {
+export default function AboutPage() {
   return (
     <Container fluid>
       <Segment>
-        <h2>Hello World</h2>
+        <h2>About Page</h2>
       </Segment>
     </Container>
   );
