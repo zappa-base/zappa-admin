@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 
 import styles from './menuButton.module.css';
-import { MenuContext } from '../MenuContext';
+import { MenuContext } from '../Contexts/MenuContext';
 
 export function MenuButton() {
   return (

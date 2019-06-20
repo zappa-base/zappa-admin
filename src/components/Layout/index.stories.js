@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { MemoryRouter } from 'react-router';
 
 import { LayoutWithRouter } from '.';
-import { MenuContextProvider } from '../MenuContext';
+import { MenuContextProvider } from '../Contexts/MenuContext';
 
 storiesOf('Layout', module)
   .addDecorator(story => (

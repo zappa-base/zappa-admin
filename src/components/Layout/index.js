@@ -5,7 +5,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 
 import { HomePage } from '../../pages/HomePage';
 import { MenuButton } from '../MenuButton';
-import { MenuContext } from '../MenuContext';
+import { MenuContext } from '../Contexts/MenuContext';
 import { Sidebar } from '../Sidebar';
 import { UsersPage } from '../../pages/UsersPage';
 

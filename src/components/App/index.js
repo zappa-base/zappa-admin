@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { LayoutWithRouter } from '../Layout';
-import { MenuContextProvider } from '../MenuContext';
+import { MenuContextProvider } from '../Contexts/MenuContext';
 
 export function App() {
   return (
