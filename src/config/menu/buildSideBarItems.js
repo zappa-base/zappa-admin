@@ -9,6 +9,7 @@ function mapMenuItemGroup(currentPathname) {
     <Menu.Item
       active={currentPathname === route.path}
       as={Link}
+      key={route.title}
       to={route.path}
     >
       {route.icon && <Icon name={route.icon} />}

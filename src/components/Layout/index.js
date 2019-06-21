@@ -12,14 +12,18 @@ import UsersPage from '../../pages/UsersPage';
 import styles from './layout.module.css';
 import { buildRoutes } from '../../config/routes/buildRoutes';
 
-export function Layout({ location: { pathname } }) {
+export function Layout({ isAuth, location: { pathname } }) {
   return (
     <Fragment>
       <MenuButton />
       <MenuContext.Consumer>
         {({ state }) => (
           <SemanticSidebar.Pushable>
-            <Sidebar opened={state.opened} currentPathname={pathname} />
+            <Sidebar
+              opened={state.opened}
+              currentPathname={pathname}
+              isAuth={isAuth}
+            />
             <SemanticSidebar.Pusher>
               <Grid
                 className={`${styles.grid} ${
@@ -44,12 +48,14 @@ export function Layout({ location: { pathname } }) {
 }
 
 Layout.propTypes = {
+  isAuth: PropTypes.bool,
   location: PropTypes.shape({
     pathname: PropTypes.string
   })
 };
 
 Layout.defaultProps = {
+  isAuth: false,
   location: {}
 };
 

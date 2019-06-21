@@ -17,7 +17,8 @@ export function SignUpForm() {
     <Grid.Column width="6">
       <Segment>
         <Header as="h2">Sign Up</Header>
-        <p>Welcome to Zappa Admin Sign Up</p>
+        <p>Welcome to Zappa Admin</p>
+        <p>Sign up here if applying for admin or moderator.</p>
         <Form
           error={state.errors && state.errors.form}
           onSubmit={() => {

@@ -3,25 +3,29 @@ import { Route } from 'react-router-dom';
 
 import { authenticated, defaults, notFound, unauthenticated } from './routes';
 import { asyncComponent } from '../../helpers/asyncComponent/asyncComponent';
+import { AuthenticatedRoute } from '../../components/Auth/AuthenticatedRoute';
 
-function mapRoute(route) {
-  return (
-    <Route
-      exact={route.exact}
-      path={route.path}
+function mapRoute(type = 'default') {
+  const RouteType = type === 'authenticated' ? AuthenticatedRoute : Route;
+
+  return route => (
+    <RouteType
       component={asyncComponent(route.component)}
+      exact={route.exact}
+      key={route.title}
+      path={route.path}
     />
   );
 }
 
 export function buildRoutes() {
-  const unauthenticatedRoutes = unauthenticated.map(mapRoute);
+  const unauthenticatedRoutes = unauthenticated.map(mapRoute());
 
-  const authenticatedRoutes = authenticated.map(mapRoute);
+  const authenticatedRoutes = authenticated.map(mapRoute('authenticated'));
 
-  const defaultsRoutes = defaults.map(mapRoute);
+  const defaultsRoutes = defaults.map(mapRoute());
 
-  const notFoundRoute = notFound.map(mapRoute);
+  const notFoundRoute = notFound.map(mapRoute());
 
   return unauthenticatedRoutes
     .concat(authenticatedRoutes)

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container, Grid } from 'semantic-ui-react';
-import { LoginForm } from '../../components/Forms/LoginForm';
+import { SignUpForm } from '../../components/Forms/SignUpForm';
 
-export default function LoginPage() {
+export default function SignUpPage() {
   return (
     <Container fluid>
       <Grid centered>
-        <LoginForm />
+        <SignUpForm />
       </Grid>
     </Container>
   );

@@ -9,10 +9,17 @@ storiesOf('Layout', module)
   .addDecorator(story => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
-  .add('default', () => {
+  .add('Unauthenticated', () => {
     return (
       <MenuContextProvider>
         <LayoutWithRouter />
+      </MenuContextProvider>
+    );
+  })
+  .add('Authenticated', () => {
+    return (
+      <MenuContextProvider>
+        <LayoutWithRouter isAuth />
       </MenuContextProvider>
     );
   });
