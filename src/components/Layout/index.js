@@ -26,18 +26,17 @@ export function Layout({ isAuth, location: { pathname } }) {
             />
             <SemanticSidebar.Pusher>
               <Grid
+                centered
                 className={`${styles.grid} ${
                   state.opened ? styles.opened : styles.closed
                 }`}
                 padded
               >
-                <Grid.Column>
-                  <Switch>
-                    {buildRoutes()}
-                    <Route component={HomePage} path="/" exact />
-                    <Route component={UsersPage} path="/users" />
-                  </Switch>
-                </Grid.Column>
+                <Switch>
+                  {buildRoutes()}
+                  <Route component={HomePage} path="/" exact />
+                  <Route component={UsersPage} path="/users" />
+                </Switch>
               </Grid>
             </SemanticSidebar.Pusher>
           </SemanticSidebar.Pushable>
