@@ -1,8 +1,6 @@
-import { asyncComponent } from '../../helpers/asyncComponent/asyncComponent';
-
 export const unauthenticated = [
   {
-    component: asyncComponent(() => import('../../pages/LoginPage')),
+    component: () => import('../../pages/LoginPage'),
     exact: false,
     icon: 'sign-in',
     path: '/login',
@@ -12,19 +10,19 @@ export const unauthenticated = [
 
 export const authenticated = [
   {
-    component: asyncComponent(() => import('../../pages/HomePage')),
+    component: () => import('../../pages/HomePage'),
     exact: true,
     path: '/',
     title: 'Home'
   },
   {
-    component: asyncComponent(() => import('../../pages/UsersPage')),
+    component: () => import('../../pages/UsersPage'),
     exact: false,
     path: '/users',
     title: 'Users'
   },
   {
-    component: asyncComponent(() => import('../../pages/LogoutPage')),
+    component: () => import('../../pages/LogoutPage'),
     exact: false,
     icon: 'sign-out',
     path: '/logout',
@@ -34,7 +32,7 @@ export const authenticated = [
 
 export const defaults = [
   {
-    component: asyncComponent(() => import('../../pages/AboutPage')),
+    component: () => import('../../pages/AboutPage'),
     exact: false,
     path: '/about',
     title: 'About'
@@ -43,7 +41,7 @@ export const defaults = [
 
 export const notFound = [
   {
-    component: asyncComponent(() => import('../../pages/NotFound')),
+    component: () => import('../../pages/NotFound'),
     exact: false,
     title: 'Page Not Found'
   }

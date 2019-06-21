@@ -2,10 +2,15 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import { authenticated, defaults, notFound, unauthenticated } from './routes';
+import { asyncComponent } from '../../helpers/asyncComponent/asyncComponent';
 
 function mapRoute(route) {
   return (
-    <Route exact={route.exact} path={route.path} component={route.component} />
+    <Route
+      exact={route.exact}
+      path={route.path}
+      component={asyncComponent(route.component)}
+    />
   );
 }
 
