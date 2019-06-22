@@ -12,7 +12,7 @@ import UsersPage from '../../pages/UsersPage';
 import styles from './layout.module.css';
 import { buildRoutes } from '../../config/routes/buildRoutes';
 
-export function Layout({ isAuth, location: { pathname } }) {
+export function Layout({ currentUser, location: { pathname } }) {
   return (
     <Fragment>
       <MenuButton />
@@ -20,9 +20,9 @@ export function Layout({ isAuth, location: { pathname } }) {
         {({ state }) => (
           <SemanticSidebar.Pushable>
             <Sidebar
-              opened={state.opened}
               currentPathname={pathname}
-              isAuth={isAuth}
+              currentUser={currentUser}
+              opened={state.opened}
             />
             <SemanticSidebar.Pusher>
               <Grid
@@ -33,7 +33,7 @@ export function Layout({ isAuth, location: { pathname } }) {
                 padded
               >
                 <Switch>
-                  {buildRoutes()}
+                  {buildRoutes(currentUser)}
                   <Route component={HomePage} path="/" exact />
                   <Route component={UsersPage} path="/users" />
                 </Switch>
@@ -47,14 +47,14 @@ export function Layout({ isAuth, location: { pathname } }) {
 }
 
 Layout.propTypes = {
-  isAuth: PropTypes.bool,
+  currentUser: PropTypes.object,
   location: PropTypes.shape({
     pathname: PropTypes.string
   })
 };
 
 Layout.defaultProps = {
-  isAuth: false,
+  currentUser: undefined,
   location: {}
 };
 

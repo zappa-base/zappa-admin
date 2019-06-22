@@ -5,27 +5,31 @@ import { authenticated, defaults, notFound, unauthenticated } from './routes';
 import { asyncComponent } from '../../helpers/asyncComponent/asyncComponent';
 import { AuthenticatedRoute } from '../../components/Auth/AuthenticatedRoute';
 
-function mapRoute(type = 'default') {
+function mapRoute(currentUser, type = 'default') {
   const RouteType = type === 'authenticated' ? AuthenticatedRoute : Route;
 
   return route => (
     <RouteType
       component={asyncComponent(route.component)}
+      currentUser={currentUser}
       exact={route.exact}
       key={route.title}
       path={route.path}
+      requiredRole={route.role}
     />
   );
 }
 
-export function buildRoutes() {
-  const unauthenticatedRoutes = unauthenticated.map(mapRoute());
+export function buildRoutes(currentUser) {
+  const unauthenticatedRoutes = unauthenticated.map(mapRoute(currentUser));
 
-  const authenticatedRoutes = authenticated.map(mapRoute('authenticated'));
+  const authenticatedRoutes = authenticated.map(
+    mapRoute(currentUser, 'authenticated')
+  );
 
-  const defaultsRoutes = defaults.map(mapRoute());
+  const defaultsRoutes = defaults.map(mapRoute(currentUser));
 
-  const notFoundRoute = notFound.map(mapRoute());
+  const notFoundRoute = notFound.map(mapRoute(currentUser));
 
   return unauthenticatedRoutes
     .concat(authenticatedRoutes)

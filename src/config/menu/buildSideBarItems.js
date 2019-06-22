@@ -3,6 +3,7 @@ import { Icon, Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 import { authenticated, defaults, unauthenticated } from '../routes/routes';
+import { isRequiredRoleLevel } from '../../helpers/auth/roleLevels';
 
 function mapMenuItemGroup(currentPathname) {
   return route => (
@@ -18,12 +19,15 @@ function mapMenuItemGroup(currentPathname) {
   );
 }
 
-export function buildSideBarItems(currentPathname, userAuthenticated = false) {
+export function buildSideBarItems(currentPathname, currentUser) {
   const sidebarMapper = mapMenuItemGroup(currentPathname);
 
   const defaultItems = defaults.map(sidebarMapper);
-  const conditionalItems = (userAuthenticated
-    ? authenticated
+  const conditionalItems = (currentUser
+    ? authenticated.filter(
+        route =>
+          !route.role || isRequiredRoleLevel(currentUser.role, route.role)
+      )
     : unauthenticated
   ).map(sidebarMapper);
 

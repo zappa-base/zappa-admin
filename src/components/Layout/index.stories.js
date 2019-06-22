@@ -5,6 +5,10 @@ import { MemoryRouter } from 'react-router';
 import { LayoutWithRouter } from '.';
 import { MenuContextProvider } from '../Contexts/MenuContext';
 
+const currentUser = {
+  role: 'admin'
+};
+
 storiesOf('Layout', module)
   .addDecorator(story => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
@@ -19,7 +23,7 @@ storiesOf('Layout', module)
   .add('Authenticated', () => {
     return (
       <MenuContextProvider>
-        <LayoutWithRouter isAuth />
+        <LayoutWithRouter currentUser={currentUser} />
       </MenuContextProvider>
     );
   });
