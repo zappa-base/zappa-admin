@@ -6,9 +6,9 @@ import { ApolloLink, Observable } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { getNewToken } from './getNewToken';
 
-// eslint-disable-next-line consistent-return
 const onErrorLink = onError(
   ({ graphQLErrors, networkError, operation, forward }) => {
+    // eslint-disable-line consistent-return
     if (graphQLErrors)
       for (let index = 0; index < graphQLErrors.length; index += 1) {
         switch (graphQLErrors[index].extensions.code) {
