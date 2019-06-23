@@ -1,8 +1,8 @@
+import React from 'react';
 import { MemoryRouter } from 'react-router';
 import { Sidebar as SemanticSidebar, Segment } from 'semantic-ui-react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
-import React from 'react';
 
 import { Sidebar } from '.';
 import { ParagraphLoader } from '../Loaders/ParagraphLoader';
