@@ -9,6 +9,7 @@ import { Sidebar } from '../Sidebar';
 
 import styles from './layout.module.css';
 import { buildRoutes } from '../../config/routes/buildRoutes';
+import { withUserContext } from '../Contexts/UserContext/withUserContext';
 
 export function Layout({ currentUser, location: { pathname } }) {
   return (
@@ -53,3 +54,5 @@ Layout.defaultProps = {
 };
 
 export const LayoutWithRouter = withRouter(Layout);
+
+export const LayoutWithRouterUser = withUserContext(LayoutWithRouter);
