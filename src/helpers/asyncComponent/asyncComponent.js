@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 export function asyncComponent(importComponent) {
   class AsyncComponent extends Component {
+    unmounted = false;
+
     constructor(props) {
       super(props);
 
@@ -13,9 +15,17 @@ export function asyncComponent(importComponent) {
     async componentDidMount() {
       const { default: component } = await importComponent();
 
+      if (this.unmounted) {
+        return;
+      }
+
       this.setState({
         component
       });
+    }
+
+    componentWillUnmount() {
+      this.unmounted = true;
     }
 
     render() {

@@ -4,5 +4,6 @@ import 'semantic-ui-css/semantic.min.css';
 
 // global css
 import { App } from './components/App';
+import { client } from './graphql/createClient';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App apolloClient={client} />, document.getElementById('root'));

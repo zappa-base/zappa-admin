@@ -7,8 +7,8 @@ import { actionTypes } from './actionTypes';
 
 export const UserContext = createContext(initialState);
 
-export function UserContextProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+export function UserContextProvider({ children, initialUser }) {
+  const [state, dispatch] = useReducer(reducer, initialUser || initialState);
 
   return (
     <UserContext.Provider
@@ -25,9 +25,11 @@ export function UserContextProvider({ children }) {
 }
 
 UserContextProvider.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  initialUser: PropTypes.object
 };
 
 UserContextProvider.defaultProps = {
-  children: null
+  children: null,
+  initialUser: undefined
 };
