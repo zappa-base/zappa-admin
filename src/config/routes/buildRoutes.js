@@ -4,9 +4,21 @@ import { Route } from 'react-router-dom';
 import { authenticated, defaults, notFound, unauthenticated } from './routes';
 import { asyncComponent } from '../../helpers/asyncComponent/asyncComponent';
 import { AuthenticatedRoute } from '../../components/Auth/AuthenticatedRoute';
+import { UnauthenticatedRoute } from '../../components/Auth/UnauthenticatedRoute';
 
 function mapRoute(currentUser, type = 'default') {
-  const RouteType = type === 'authenticated' ? AuthenticatedRoute : Route;
+  let RouteType = Route;
+
+  switch (type) {
+    case 'authenticated':
+      RouteType = AuthenticatedRoute;
+      break;
+    case 'unauthenticated':
+      RouteType = UnauthenticatedRoute;
+      break;
+    default:
+      break;
+  }
 
   return route => (
     <RouteType
@@ -21,7 +33,9 @@ function mapRoute(currentUser, type = 'default') {
 }
 
 export function buildRoutes(currentUser) {
-  const unauthenticatedRoutes = unauthenticated.map(mapRoute(currentUser));
+  const unauthenticatedRoutes = unauthenticated.map(
+    mapRoute(currentUser, 'unauthenticated')
+  );
 
   const authenticatedRoutes = authenticated.map(
     mapRoute(currentUser, 'authenticated')

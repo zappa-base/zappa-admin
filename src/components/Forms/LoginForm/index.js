@@ -1,52 +1,56 @@
-import React, { useState } from 'react';
-import { Form, Grid, Segment, Message, Header } from 'semantic-ui-react';
-import { StatePrinter } from '../../Debug/StatePrinter';
+import React from 'react';
+import PropTypes from 'prop-types'
+import { Mutation } from 'react-apollo';
 
-const intialState = {
-  email: '',
-  errors: null,
-  password: ''
-};
+import { loader } from 'graphql.macro'
+import { LoginForm } from './LoginForm';
+import { UserContext } from '../../Contexts/UserContext';
+import { postLoginRedirect } from '../../../helpers/auth/postLoginRedirect';
 
-export function LoginForm() {
-  const [state, setState] = useState(() => intialState);
+const mutation = loader('./mutation.gql');
 
+function onSubmit(mutate) {
+  return (data) => {
+    const { email, password } = data;
+
+    mutate({
+      variables: {
+        email,
+        password,
+      }
+    })
+  }
+}
+
+export function LoginFormWithMutation({ from, history }) {
   return (
-    <Grid.Column width="6">
-      <Segment>
-        <Header as="h2">Login</Header>
-        <Form error={state.errors && state.errors.form} onSubmit={() => {}}>
-          <Form.Field>
-            <Form.Input
-              label="Email"
-              name="email"
-              onChange={({ target }) =>
-                setState({ ...state, [target.name]: target.value })
-              }
-              type="email"
-              value={state.email}
-            />
-            <Form.Input
-              label="Password"
-              name="password"
-              onChange={({ target }) =>
-                setState({ ...state, [target.name]: target.value })
-              }
-              type="password"
-              value={state.password}
-            />
-          </Form.Field>
-          <Message error content={state.errors && state.errors.form} />
-          <Form.Button
-            disabled={Object.keys(state).some(
-              key => key !== 'errors' && !state[key]
-            )}
-          >
-            Submit
-          </Form.Button>
-        </Form>
-      </Segment>
-      <StatePrinter label="Signup Form" state={state} />
-    </Grid.Column>
-  );
+    <UserContext.Consumer>
+      {({ login }) => (
+        <Mutation
+          mutation={mutation}
+          onCompleted={(data) => {
+            
+          if (data.login.token) {
+            login(data.login);
+            
+            postLoginRedirect(from, history);
+          }
+        }}
+        >
+          {(mutate, { loading }) => (
+            <LoginForm onSubmit={onSubmit(mutate)} loading={loading} />
+        )}
+        </Mutation>
+      )}
+    </UserContext.Consumer>
+  )
+}
+
+LoginFormWithMutation.propTypes = {
+  from: PropTypes.object,
+  history: PropTypes.object.isRequired,
+}
+
+LoginFormWithMutation.defaultProps = {
+  from: {},
 }

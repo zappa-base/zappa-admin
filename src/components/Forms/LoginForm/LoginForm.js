@@ -1,40 +1,31 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types'
 import { Form, Grid, Segment, Message, Header } from 'semantic-ui-react';
 
 const intialState = {
-  confirm: '',
   email: '',
   errors: null,
-  nickname: '',
   password: ''
 };
 
-export function SignUpForm() {
+export function LoginForm({ onSubmit }) {
   const [state, setState] = useState(() => intialState);
 
   return (
     <Grid.Column width="6">
       <Segment>
-        <Header as="h2">Sign Up</Header>
-        <p>Welcome to Zappa Admin</p>
-        <p>Sign up here if applying for admin or moderator.</p>
+        <Header as="h2">Login</Header>
         <Form
           error={state.errors && state.errors.form}
-          onSubmit={() => {
-            if (state.password !== state.confirm) {
-              setState({ ...state, errors: { form: "Passwords don't match" } });
+          onSubmit={(event) => {
+            event.preventDefault();
+
+            if (onSubmit) {
+              onSubmit(state);
             }
           }}
         >
           <Form.Field>
-            <Form.Input
-              label="Nickname"
-              name="nickname"
-              onChange={({ target }) =>
-                setState({ ...state, [target.name]: target.value })
-              }
-              value={state.nickname}
-            />
             <Form.Input
               label="Email"
               name="email"
@@ -53,15 +44,6 @@ export function SignUpForm() {
               type="password"
               value={state.password}
             />
-            <Form.Input
-              label="Confirm Password"
-              name="confirm"
-              onChange={({ target }) =>
-                setState({ ...state, [target.name]: target.value })
-              }
-              type="password"
-              value={state.confirm}
-            />
           </Form.Field>
           <Message error content={state.errors && state.errors.form} />
           <Form.Button
@@ -75,4 +57,12 @@ export function SignUpForm() {
       </Segment>
     </Grid.Column>
   );
+}
+
+LoginForm.propTypes = {
+  onSubmit: PropTypes.func,
+}
+
+LoginForm.defaultProps = {
+  onSubmit: () => {},
 }
