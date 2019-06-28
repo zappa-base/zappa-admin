@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 
 import { loader } from 'graphql.macro';
+import { onError } from 'apollo-link-error';
 import { LoginForm } from './LoginForm';
 import { UserContext } from '../../Contexts/UserContext';
 import { postLoginRedirect } from '../../../helpers/auth/postLoginRedirect';
+import { getInputErrors } from '../../../helpers/errors/getInputErrors';
 
 const mutation = loader('../../../graphql/mutations/login.gql');
 
@@ -35,9 +37,14 @@ export function LoginFormWithMutation({ from, history }) {
               postLoginRedirect(from, history);
             }
           }}
+          onError={onError}
         >
-          {(mutate, { loading }) => (
-            <LoginForm onSubmit={onSubmit(mutate)} loading={loading} />
+          {(mutate, { loading, error }) => (
+            <LoginForm
+              onSubmit={onSubmit(mutate)}
+              loading={loading}
+              errors={error && getInputErrors(error)}
+            />
           )}
         </Mutation>
       )}

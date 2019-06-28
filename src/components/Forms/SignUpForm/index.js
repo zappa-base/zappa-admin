@@ -1,78 +1,37 @@
-import React, { useState } from 'react';
-import { Form, Grid, Segment, Message, Header } from 'semantic-ui-react';
+import React from 'react';
+import { Mutation } from 'react-apollo';
 
-const intialState = {
-  confirm: '',
-  email: '',
-  errors: null,
-  nickname: '',
-  password: ''
-};
+import { loader } from 'graphql.macro';
+import { onError } from 'apollo-link-error';
+import { getInputErrors } from '../../../helpers/errors/getInputErrors';
+import { SignUpForm } from './SignUpForm';
 
-export function SignUpForm() {
-  const [state, setState] = useState(() => intialState);
+const mutation = loader('../../../graphql/mutations/signup.gql');
 
+function onSubmit(mutate) {
+  return data => {
+    const { email, nickname, password } = data;
+
+    mutate({
+      variables: {
+        email,
+        password,
+        nickname
+      }
+    });
+  };
+}
+
+export function SignUpFormWithMutation() {
   return (
-    <Grid.Column width="6">
-      <Segment>
-        <Header as="h2">Sign Up</Header>
-        <p>Welcome to Zappa Admin</p>
-        <p>Sign up here if applying for admin or moderator.</p>
-        <Form
-          error={state.errors && state.errors.form}
-          onSubmit={() => {
-            if (state.password !== state.confirm) {
-              setState({ ...state, errors: { form: "Passwords don't match" } });
-            }
-          }}
-        >
-          <Form.Field>
-            <Form.Input
-              label="Nickname"
-              name="nickname"
-              onChange={({ target }) =>
-                setState({ ...state, [target.name]: target.value })
-              }
-              value={state.nickname}
-            />
-            <Form.Input
-              label="Email"
-              name="email"
-              onChange={({ target }) =>
-                setState({ ...state, [target.name]: target.value })
-              }
-              type="email"
-              value={state.email}
-            />
-            <Form.Input
-              label="Password"
-              name="password"
-              onChange={({ target }) =>
-                setState({ ...state, [target.name]: target.value })
-              }
-              type="password"
-              value={state.password}
-            />
-            <Form.Input
-              label="Confirm Password"
-              name="confirm"
-              onChange={({ target }) =>
-                setState({ ...state, [target.name]: target.value })
-              }
-              type="password"
-              value={state.confirm}
-            />
-          </Form.Field>
-          <Message error content={state.errors && state.errors.form} />
-          <Form.Button
-            disabled={Object.keys(state).some(
-              key => key !== 'errors' && !state[key]
-            )}
-          >
-            Submit
-          </Form.Button>
-        </Form>
-      </Segment>
-    </Grid.Column>
+    <Mutation mutation={mutation} onCompleted={() => {}} onError={onError}>
+      {(mutate, { loading, error }) => (
+        <SignUpForm
+          onSubmit={onSubmit(mutate)}
+          loading={loading}
+          errors={error && getInputErrors(error)}
+        />
+      )}
+    </Mutation>
   );
 }

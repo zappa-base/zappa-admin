@@ -1,37 +1,61 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Grid, Segment, Message, Header } from 'semantic-ui-react';
+
 import { inputErrorsToFormErrors } from '../../../helpers/errors/inputErrorsToFormErrors';
 
 const intialState = {
+  confirm: '',
   email: '',
   errors: null,
+  nickname: '',
   password: ''
 };
 
-export function LoginForm({ errors, loading, onSubmit }) {
+export function SignUpForm({ errors, loading, onSubmit }) {
   const [state, setState] = useState(() => intialState);
 
   return (
     <Grid.Column width="6">
       <Segment>
-        <Header as="h2">Login</Header>
+        <Header as="h2">Sign Up</Header>
+        <p>Welcome to Zappa Admin</p>
+        <p>Sign up here if applying for admin or moderator.</p>
         <Form
           error={(state.errors && state.errors.form) || Boolean(errors)}
           loading={loading}
+          noValidate
           onSubmit={event => {
             event.preventDefault();
+
+            if (state.password !== state.confirm) {
+              setState({ ...state, errors: { form: "Passwords don't match" } });
+              return;
+            }
 
             if (onSubmit) {
               onSubmit(state);
             }
+
+            setState({ ...state, errors: null });
           }}
         >
           <Form.Field>
             <Form.Input
+              autoComplete="nickname"
+              label="Nickname"
+              name="nickname"
+              error={errors && errors[1] && errors[1].nickname}
+              onChange={({ target }) =>
+                setState({ ...state, [target.name]: target.value })
+              }
+              value={state.nickname}
+            />
+            <Form.Input
               autoComplete="username"
               label="Email"
               name="email"
+              error={errors && errors[1] && errors[1].email}
               onChange={({ target }) =>
                 setState({ ...state, [target.name]: target.value })
               }
@@ -39,14 +63,25 @@ export function LoginForm({ errors, loading, onSubmit }) {
               value={state.email}
             />
             <Form.Input
-              autoComplete="current-password"
+              autoComplete="new-password"
               label="Password"
               name="password"
+              error={errors && errors[1] && errors[1].password}
               onChange={({ target }) =>
                 setState({ ...state, [target.name]: target.value })
               }
               type="password"
               value={state.password}
+            />
+            <Form.Input
+              autoComplete="new-password"
+              label="Confirm Password"
+              name="confirm"
+              onChange={({ target }) =>
+                setState({ ...state, [target.name]: target.value })
+              }
+              type="password"
+              value={state.confirm}
             />
           </Form.Field>
           <Message error {...inputErrorsToFormErrors(state, errors)} />
@@ -63,13 +98,13 @@ export function LoginForm({ errors, loading, onSubmit }) {
   );
 }
 
-LoginForm.propTypes = {
-  onSubmit: PropTypes.func,
+SignUpForm.propTypes = {
   errors: PropTypes.array,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  onSubmit: PropTypes.func
 };
 
-LoginForm.defaultProps = {
+SignUpForm.defaultProps = {
   errors: undefined,
   loading: false,
   onSubmit: () => {}
