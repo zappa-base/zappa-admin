@@ -12,12 +12,5 @@ export const authenticated = [
     path: '/users',
     title: 'Users',
     role: 'admin'
-  },
-  {
-    component: () => import('../../pages/LogoutPage'),
-    exact: false,
-    icon: 'sign-out',
-    path: '/logout',
-    title: 'Logout'
   }
 ];
