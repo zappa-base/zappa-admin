@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ApolloProvider, Query } from 'react-apollo';
 import { BrowserRouter } from 'react-router-dom';
+import { loader } from 'graphql.macro';
 import { LayoutWithRouterUser } from '../Layout';
 import { MenuContextProvider } from '../Contexts/MenuContext';
 import { UserContextProvider } from '../Contexts/UserContext';
-import { currentUserQuery } from '../../graphql/queries/currentUser';
+
+const currentUserQuery = loader('../../graphql/queries/currentUser.gql');
 
 export function App({ apolloClient }) {
   return (

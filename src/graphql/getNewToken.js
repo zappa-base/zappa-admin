@@ -1,5 +1,7 @@
+import { loader } from 'graphql.macro';
 import { getApolloClient } from './createClient';
-import { authorizeMutation } from './queries/mutations/authorize';
+
+const authorizeMutation = loader('./mutations/authorize.gql');
 
 export async function getNewToken(token) {
   const client = getApolloClient();

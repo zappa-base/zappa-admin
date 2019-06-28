@@ -1,0 +1,5 @@
+mutation authorize($token: String!) {
+  authorize(token: $token) {
+    token
+  }
+}
