@@ -24,7 +24,6 @@ export function SignUpForm({ errors, loading, onSubmit }) {
         <Form
           error={(state.errors && state.errors.form) || Boolean(errors)}
           loading={loading}
-          noValidate
           onSubmit={event => {
             event.preventDefault();
 
