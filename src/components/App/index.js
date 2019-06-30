@@ -13,9 +13,9 @@ export function App({ apolloClient }) {
   return (
     <ApolloProvider client={apolloClient}>
       <BrowserRouter>
-        <Query query={currentUserQuery}>
-          {({ data, loading, error }) => {
-            if (loading && !error) {
+        <Query query={currentUserQuery} errorPolicy="ignore">
+          {({ data, loading }) => {
+            if (loading) {
               return 'Loading...';
             }
 
