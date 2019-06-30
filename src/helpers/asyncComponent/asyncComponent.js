@@ -1,39 +1,31 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export function asyncComponent(importComponent) {
-  class AsyncComponent extends Component {
-    unmounted = false;
+  let unmounted = false;
 
-    constructor(props) {
-      super(props);
+  return function AsyncComponent(props) {
+    const [state, setState] = useState({ component: null });
 
-      this.state = {
-        component: null
-      };
-    }
+    useEffect(() => {
+      async function getComponent() {
+        const { default: component } = await importComponent();
 
-    async componentDidMount() {
-      const { default: component } = await importComponent();
-
-      if (this.unmounted) {
-        return;
+        if (!unmounted) {
+          setState({
+            component
+          });
+        }
       }
 
-      this.setState({
-        component
-      });
-    }
+      getComponent();
 
-    componentWillUnmount() {
-      this.unmounted = true;
-    }
+      return () => {
+        unmounted = true;
+      };
+    });
 
-    render() {
-      const { component: C } = this.state;
+    const { component: C } = state;
 
-      return C ? <C {...this.props} /> : null;
-    }
-  }
-
-  return AsyncComponent;
+    return C ? <C {...props} /> : null;
+  };
 }
