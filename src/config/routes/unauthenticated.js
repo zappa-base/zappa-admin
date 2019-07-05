@@ -11,5 +11,12 @@ export const unauthenticated = [
     icon: 'sign-in',
     path: '/login',
     title: 'Login'
+  },
+  {
+    component: () => import('../../pages/ConfirmPasswordPage'),
+    exact: false,
+    path: '/activate-account',
+    skipSidebar: true,
+    title: 'Confirm Account'
   }
 ];

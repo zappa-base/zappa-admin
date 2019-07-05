@@ -28,7 +28,7 @@ export function buildSideBarItems(currentPathname, currentUser) {
         route =>
           !route.role || isRequiredRoleLevel(currentUser.role, route.role)
       )
-    : unauthenticated
+    : unauthenticated.filter(route => !route.skipSidebar)
   ).map(sidebarMapper);
 
   return defaultItems.concat(conditionalItems);

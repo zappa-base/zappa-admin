@@ -1,11 +1,11 @@
-mutation Login($email: String!, $password: String!) {
+#import "../fragments/user.gql"
+
+mutation login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
     token
 
     user {
-      email
-      nickname
-      role
+      ...UserFragment
     }
   }
 }

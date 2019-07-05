@@ -1,0 +1,11 @@
+#import "../fragments/user.gql"
+
+mutation confirmAccount($token: String!) {
+  confirmUser(token: $token) {
+    token
+
+    user {
+      ...UserFragment
+    }
+  }
+}

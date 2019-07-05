@@ -4,9 +4,9 @@ import { Mutation } from 'react-apollo';
 
 import { loader } from 'graphql.macro';
 import { onError } from 'apollo-link-error';
-import { Modal, Header, Icon, Button } from 'semantic-ui-react';
 import { getInputErrors } from '../../../helpers/errors/getInputErrors';
 import { SignUpForm } from './SignUpForm';
+import { BasicModal } from '../../Modals/BasicModal';
 
 const mutation = loader('../../../graphql/mutations/signup.gql');
 
@@ -47,23 +47,13 @@ export function SignUpFormWithMutation({ history }) {
             loading={loading}
             onSubmit={onSubmit(mutate, onSuccess)}
           />
-          <Modal
-            basic
-            closeOnDimmerClick={false}
-            onClose={handleClose}
-            open={state.modalOpen}
-            size="mini"
-          >
-            <Header icon="mail" content="Sign up successful" />
-            <Modal.Content>
-              <p>A confirmation email has been sent out to {state.email}.</p>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button color="green" onClick={handleClose}>
-                <Icon name="checkmark" /> Okay
-              </Button>
-            </Modal.Actions>
-          </Modal>
+          <BasicModal
+            content={`A confirmation email has been sent out to ${state.email}.`}
+            handleClose={handleClose}
+            headerContent="Sign up successful"
+            headerIcon="mail"
+            opened={state.modalOpen}
+          />
         </Fragment>
       )}
     </Mutation>
