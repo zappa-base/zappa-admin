@@ -22,7 +22,7 @@ function mapRoute(currentUser, type = 'default') {
 
   return route => (
     <RouteType
-      component={asyncComponent(route.component)}
+      component={asyncComponent(route.component, route.title)}
       currentUser={currentUser}
       exact={route.exact}
       key={route.title}

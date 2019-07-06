@@ -18,5 +18,12 @@ export const unauthenticated = [
     path: '/activate-account',
     skipSidebar: true,
     title: 'Confirm Account'
+  },
+  {
+    component: () => import('../../pages/ForgotPasswordPage'),
+    exact: false,
+    path: '/forgot-password',
+    skipSidebar: true,
+    title: 'Forgot Password'
   }
 ];

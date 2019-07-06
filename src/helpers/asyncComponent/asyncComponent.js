@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export function asyncComponent(importComponent) {
+export function asyncComponent(importComponent, title) {
   let unmounted = false;
 
   return function AsyncComponent(props) {
@@ -11,6 +11,8 @@ export function asyncComponent(importComponent) {
         const { default: component } = await importComponent();
 
         if (!unmounted) {
+          document.title = title ? `${title} - Zappa Admin` : 'Zappa Admin';
+
           setState({
             component
           });
