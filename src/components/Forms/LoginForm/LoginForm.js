@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Grid, Segment, Message, Header } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Form, Grid, Segment, Message, Header, Icon } from 'semantic-ui-react';
 import { inputErrorsToFormErrors } from '../../../helpers/errors/inputErrorsToFormErrors';
 import { ResendConfirmationWithRouter } from '../../ResendConfirmation';
 
@@ -65,6 +66,10 @@ export function LoginForm({ hasConfirmationError, errors, loading, onSubmit }) {
           <Form.Button disabled={!state.email || !state.password}>
             Submit
           </Form.Button>
+          <Message size="tiny" visible>
+            <Icon name="info" />
+            <Link to="/forgot-password">Forgot Password?</Link>
+          </Message>
         </Form>
       </Segment>
       <ResendConfirmationWithRouter
