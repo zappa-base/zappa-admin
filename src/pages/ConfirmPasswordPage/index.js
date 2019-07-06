@@ -77,14 +77,20 @@ export default function ConfirmPasswordPage({ history, location }) {
 
                   if (!query.token) {
                     return (
-                      <ConfirmTokenForm mutate={mutate} loading={loading} />
+                      <div>
+                        <Header>Confirm Account</Header>
+                        <ConfirmTokenForm mutate={mutate} loading={loading} />
+                      </div>
                     );
                   }
 
                   return (
-                    <Dimmer active inverted>
-                      <Loader size="huge">Confirming Account</Loader>
-                    </Dimmer>
+                    <div>
+                      <Header>Confirming Account</Header>
+                      <Dimmer active inverted>
+                        <Loader size="huge">Confirming Account</Loader>
+                      </Dimmer>
+                    </div>
                   );
                 }}
               </Mutation>

@@ -24,6 +24,13 @@ function onSubmit(mutate) {
   };
 }
 
+function hasConfirmationError(error) {
+  return (
+    error &&
+    error.graphQLErrors.some(value => value.extensions.code === 'UNCONFIRMED')
+  );
+}
+
 export function LoginFormWithMutation({ from, history }) {
   return (
     <UserContext.Consumer>
@@ -44,6 +51,7 @@ export function LoginFormWithMutation({ from, history }) {
               onSubmit={onSubmit(mutate)}
               loading={loading}
               errors={error && getInputErrors(error)}
+              hasConfirmationError={hasConfirmationError(error)}
             />
           )}
         </Mutation>

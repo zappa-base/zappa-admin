@@ -1,7 +1,4 @@
-const excludedPaths = [
-  '/logout',
-  '/login'
-]
+const excludedPaths = ['/logout', '/login'];
 
 function isExcludedPath(path) {
   return excludedPaths.indexOf(path.toLowerCase()) > -1;

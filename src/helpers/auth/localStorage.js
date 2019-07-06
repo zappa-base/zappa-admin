@@ -1,5 +1,5 @@
 export class AuthLocalStorage {
-  static storageKey = 'token'
+  static storageKey = 'token';
 
   static get token() {
     return localStorage.getItem(AuthLocalStorage.storageKey);

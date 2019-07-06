@@ -1,7 +1,7 @@
-import { onError } from "apollo-link-error";
-import { Observable } from "apollo-link";
-import { AuthLocalStorage } from "../../helpers/auth/localStorage";
-import { getNewToken } from "../getNewToken";
+import { onError } from 'apollo-link-error';
+import { Observable } from 'apollo-link';
+import { AuthLocalStorage } from '../../helpers/auth/localStorage';
+import { getNewToken } from '../getNewToken';
 
 export const onErrorLink = onError(
   // eslint-disable-next-line consistent-return

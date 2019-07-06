@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Grid, Segment, Message, Header } from 'semantic-ui-react';
 import { inputErrorsToFormErrors } from '../../../helpers/errors/inputErrorsToFormErrors';
+import { ResendConfirmationWithRouter } from '../../ResendConfirmation';
 
 const intialState = {
   email: '',
@@ -9,8 +10,15 @@ const intialState = {
   password: ''
 };
 
-export function LoginForm({ errors, loading, onSubmit }) {
+export function LoginForm({ hasConfirmationError, errors, loading, onSubmit }) {
   const [state, setState] = useState(() => intialState);
+
+  useEffect(() => {
+    setState(prevState => ({
+      ...prevState,
+      hasConfirmationError
+    }));
+  }, [hasConfirmationError]);
 
   return (
     <Grid.Column width="6">
@@ -33,7 +41,11 @@ export function LoginForm({ errors, loading, onSubmit }) {
               label="Email"
               name="email"
               onChange={({ target }) =>
-                setState({ ...state, [target.name]: target.value })
+                setState({
+                  ...state,
+                  [target.name]: target.value,
+                  hasConfirmationError: null
+                })
               }
               type="email"
               value={state.email}
@@ -50,27 +62,29 @@ export function LoginForm({ errors, loading, onSubmit }) {
             />
           </Form.Field>
           <Message error {...inputErrorsToFormErrors(state, errors)} />
-          <Form.Button
-            disabled={Object.keys(state).some(
-              key => key !== 'errors' && !state[key]
-            )}
-          >
+          <Form.Button disabled={!state.email || !state.password}>
             Submit
           </Form.Button>
         </Form>
       </Segment>
+      <ResendConfirmationWithRouter
+        email={state.email}
+        hasConfirmationError={state.hasConfirmationError}
+      />
     </Grid.Column>
   );
 }
 
 LoginForm.propTypes = {
-  onSubmit: PropTypes.func,
   errors: PropTypes.array,
-  loading: PropTypes.bool
+  hasConfirmationError: PropTypes.bool,
+  loading: PropTypes.bool,
+  onSubmit: PropTypes.func
 };
 
 LoginForm.defaultProps = {
   errors: undefined,
+  hasConfirmationError: false,
   loading: false,
   onSubmit: () => {}
 };

@@ -11,9 +11,7 @@ export function UnauthenticatedRoute({ component: Component, ...rest }) {
           return <Component {...props} />;
         }
         return (
-          <Redirect
-            to={{ pathname: '/', state: { from: props.location } }}
-          />
+          <Redirect to={{ pathname: '/', state: { from: props.location } }} />
         );
       }}
     />
