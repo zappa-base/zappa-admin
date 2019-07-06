@@ -55,18 +55,16 @@ export default function ConfirmPasswordPage({ history, location }) {
                     data.confirmUser &&
                     data.confirmUser.token
                   ) {
-                    const handleClose = () => {
-                      login(data.confirmUser);
-                      history.push('/');
-                    };
-
                     return (
                       <div style={{ textAlign: 'center' }}>
                         <Header size="huge">Account Confirmed!</Header>
                         <BasicModal
                           buttonText="Okay"
                           content="Account Successfully Confirmed"
-                          handleClose={handleClose}
+                          handleClose={() => {
+                            login(data.confirmUser);
+                            history.push('/');
+                          }}
                           headerContent="Account Confirmed"
                           headerIcon="user circle"
                           opened

@@ -25,5 +25,12 @@ export const unauthenticated = [
     path: '/forgot-password',
     skipSidebar: true,
     title: 'Forgot Password'
+  },
+  {
+    component: () => import('../../pages/ResetPasswordPage'),
+    exact: false,
+    path: '/reset-password',
+    skipSidebar: true,
+    title: 'Reset Password'
   }
 ];

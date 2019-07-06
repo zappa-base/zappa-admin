@@ -22,7 +22,7 @@ export function SignUpForm({ errors, loading, onSubmit }) {
         <p>Welcome to Zappa Admin</p>
         <p>Sign up here if applying for admin or moderator.</p>
         <Form
-          error={(state.errors && state.errors.form) || Boolean(errors)}
+          error={Boolean((state.errors && state.errors.form) || errors)}
           loading={loading}
           onSubmit={event => {
             event.preventDefault();
