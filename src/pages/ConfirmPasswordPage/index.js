@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Container,
   Segment,
@@ -16,6 +15,7 @@ import queryString from 'query-string';
 import { UserContext } from '../../components/Contexts/UserContext';
 import { ConfirmTokenForm } from '../../components/Forms/ConfirmTokenForm';
 import { BasicModal } from '../../components/Modals/BasicModal';
+import { pagesSharedPropTypes } from '../pagesSharedPropTypes';
 
 const mutation = loader('../../graphql/mutations/confirmAccount.gql');
 
@@ -100,7 +100,4 @@ export default function ConfirmPasswordPage({ history, location }) {
   );
 }
 
-ConfirmPasswordPage.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
-};
+ConfirmPasswordPage.propTypes = pagesSharedPropTypes;

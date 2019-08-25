@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { LoginFormWithMutation } from '../../components/Forms/LoginForm';
+import { pagesSharedPropTypes } from '../pagesSharedPropTypes';
 
 export default function LoginPage({ history, location }) {
   return (
@@ -12,7 +12,4 @@ export default function LoginPage({ history, location }) {
   );
 }
 
-LoginPage.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
-};
+LoginPage.propTypes = pagesSharedPropTypes;

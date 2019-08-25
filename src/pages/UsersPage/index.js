@@ -1,15 +1,30 @@
 import React from 'react';
-import { Container, Segment } from 'semantic-ui-react';
-import { Link, Route } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
+import { TabbedRoutes } from '../../components/Tabs/TabbedRoutes';
+import { UsersTab } from './UsersTab';
+import { pagesSharedPropTypes } from '../pagesSharedPropTypes';
 
-export default function UsersPage() {
+const panesTest = [
+  {
+    component: UsersTab,
+    exact: true,
+    path: '',
+    text: 'Users'
+  },
+  {
+    component: () => <div>Nothing</div>,
+    path: '/edit/:id?',
+    tabPath: '/edit',
+    text: 'Edit User'
+  }
+];
+
+export default function UsersPage({ match }) {
   return (
     <Container fluid>
-      <Segment>
-        <h2>User Page</h2>
-        <Link to="/users/test">Test</Link>
-        <Route path="/users/test" render={() => <div>Hello World Test</div>} />
-      </Segment>
+      <TabbedRoutes baseLink={match.path} panes={panesTest} />
     </Container>
   );
 }
+
+UsersPage.propTypes = pagesSharedPropTypes;
