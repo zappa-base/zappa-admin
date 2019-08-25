@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { loader } from 'graphql.macro';
 
 import { Grid, Segment, Form, Message, Button } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
 import { BasicModal } from '../../components/Modals/BasicModal';
+import { pagesSharedPropTypes } from '../pagesSharedPropTypes';
 
 const mutation = loader('../../graphql/mutations/requestReset.gql');
 
@@ -63,6 +63,4 @@ export default function ForgotPasswordPage({ history }) {
   );
 }
 
-ForgotPasswordPage.propTypes = {
-  history: PropTypes.object.isRequired
-};
+ForgotPasswordPage.propTypes = pagesSharedPropTypes;

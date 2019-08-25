@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import {
   Grid,
@@ -16,6 +15,7 @@ import { BasicModal } from '../../components/Modals/BasicModal';
 import { UserContext } from '../../components/Contexts/UserContext';
 import { inputErrorsToFormErrors } from '../../helpers/errors/inputErrorsToFormErrors';
 import { getInputErrors } from '../../helpers/errors/getInputErrors';
+import { pagesSharedPropTypes } from '../pagesSharedPropTypes';
 
 const mutation = loader('../../graphql/mutations/resetPassword.gql');
 
@@ -146,7 +146,4 @@ export default function ResetPasswordPage({ location }) {
   );
 }
 
-ResetPasswordPage.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
-};
+ResetPasswordPage.propTypes = pagesSharedPropTypes;
