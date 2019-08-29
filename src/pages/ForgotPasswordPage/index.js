@@ -4,6 +4,7 @@ import { loader } from 'graphql.macro';
 
 import { Grid, Segment, Form, Message, Button } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
+// import { useMutation } from '@apollo/react-hooks';
 import { BasicModal } from '../../components/Modals/BasicModal';
 
 const mutation = loader('../../graphql/mutations/requestReset.gql');

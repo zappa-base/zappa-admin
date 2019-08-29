@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ApolloProvider, Query } from 'react-apollo';
+import { ApolloProvider } from 'react-apollo';
+import {
+  ApolloProvider as ApolloHookProvider,
+  useQuery
+} from '@apollo/react-hooks';
+
 import { BrowserRouter } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { LayoutWithRouterUser } from '../Layout';
@@ -10,25 +15,25 @@ import { UserContextProvider } from '../Contexts/UserContext';
 const currentUserQuery = loader('../../graphql/queries/currentUser.gql');
 
 export function App({ apolloClient }) {
+  const { loading, error, data } = useQuery(currentUserQuery, {
+    client: apolloClient,
+    errorPolicy: 'ignore'
+  });
+
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+
   return (
     <ApolloProvider client={apolloClient}>
-      <BrowserRouter>
-        <Query query={currentUserQuery} errorPolicy="ignore">
-          {({ data, loading }) => {
-            if (loading) {
-              return 'Loading...';
-            }
-
-            return (
-              <UserContextProvider initialUser={data && data.currentUser}>
-                <MenuContextProvider>
-                  <LayoutWithRouterUser />
-                </MenuContextProvider>
-              </UserContextProvider>
-            );
-          }}
-        </Query>
-      </BrowserRouter>
+      <ApolloHookProvider client={apolloClient}>
+        <BrowserRouter>
+          <UserContextProvider initialUser={data && data.currentUser}>
+            <MenuContextProvider>
+              <LayoutWithRouterUser />
+            </MenuContextProvider>
+          </UserContextProvider>
+        </BrowserRouter>
+      </ApolloHookProvider>
     </ApolloProvider>
   );
 }
