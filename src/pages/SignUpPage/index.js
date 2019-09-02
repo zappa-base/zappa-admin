@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { Grid } from 'semantic-ui-react';
 import { SignUpFormWithMutation } from '../../components/Forms/SignUpForm';
+import { pagesSharedPropTypes } from '../../helpers/proptypes/pagesSharedPropTypes';
 
 export default function SignUpPage({ history, location }) {
   return (
@@ -12,7 +12,4 @@ export default function SignUpPage({ history, location }) {
   );
 }
 
-SignUpPage.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
-};
+SignUpPage.propTypes = pagesSharedPropTypes;
