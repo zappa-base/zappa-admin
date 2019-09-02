@@ -4,7 +4,7 @@ import { ApolloProvider, useQuery } from '@apollo/react-hooks';
 
 import { BrowserRouter } from 'react-router-dom';
 import { loader } from 'graphql.macro';
-import { LayoutWithRouterUser } from '../Layout';
+import { LayoutWithRouter } from '../Layout';
 import { MenuContextProvider } from '../Contexts/MenuContext';
 import { UserContextProvider } from '../Contexts/UserContext';
 
@@ -24,7 +24,7 @@ export function App({ apolloClient }) {
       <BrowserRouter>
         <UserContextProvider initialUser={data && data.currentUser}>
           <MenuContextProvider>
-            <LayoutWithRouterUser />
+            <LayoutWithRouter />
           </MenuContextProvider>
         </UserContextProvider>
       </BrowserRouter>
