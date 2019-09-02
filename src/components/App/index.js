@@ -1,10 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ApolloProvider } from 'react-apollo';
-import {
-  ApolloProvider as ApolloHookProvider,
-  useQuery
-} from '@apollo/react-hooks';
+import { ApolloProvider, useQuery } from '@apollo/react-hooks';
 
 import { BrowserRouter } from 'react-router-dom';
 import { loader } from 'graphql.macro';
@@ -25,15 +21,13 @@ export function App({ apolloClient }) {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <ApolloHookProvider client={apolloClient}>
-        <BrowserRouter>
-          <UserContextProvider initialUser={data && data.currentUser}>
-            <MenuContextProvider>
-              <LayoutWithRouterUser />
-            </MenuContextProvider>
-          </UserContextProvider>
-        </BrowserRouter>
-      </ApolloHookProvider>
+      <BrowserRouter>
+        <UserContextProvider initialUser={data && data.currentUser}>
+          <MenuContextProvider>
+            <LayoutWithRouterUser />
+          </MenuContextProvider>
+        </UserContextProvider>
+      </BrowserRouter>
     </ApolloProvider>
   );
 }
