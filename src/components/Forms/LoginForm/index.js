@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Mutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
 
 import { loader } from 'graphql.macro';
 import { onError } from 'apollo-link-error';
@@ -24,6 +24,16 @@ function onSubmit(mutate) {
   };
 }
 
+function onCompleted(login, from, history) {
+  return data => {
+    if (data.login.token) {
+      login(data.login);
+
+      postLoginRedirect(from, history);
+    }
+  };
+}
+
 function hasConfirmationError(error) {
   return (
     error &&
@@ -32,31 +42,20 @@ function hasConfirmationError(error) {
 }
 
 export function LoginFormWithMutation({ from, history }) {
-  return (
-    <UserContext.Consumer>
-      {({ login }) => (
-        <Mutation
-          mutation={mutation}
-          onCompleted={data => {
-            if (data.login.token) {
-              login(data.login);
+  const { login } = useContext(UserContext);
 
-              postLoginRedirect(from, history);
-            }
-          }}
-          onError={onError}
-        >
-          {(mutate, { loading, error }) => (
-            <LoginForm
-              onSubmit={onSubmit(mutate)}
-              loading={loading}
-              errors={error && getInputErrors(error)}
-              hasConfirmationError={hasConfirmationError(error)}
-            />
-          )}
-        </Mutation>
-      )}
-    </UserContext.Consumer>
+  const [mutate, { loading, error }] = useMutation(mutation, {
+    onCompleted: onCompleted(login, from, history),
+    onError
+  });
+
+  return (
+    <LoginForm
+      onSubmit={onSubmit(mutate)}
+      loading={loading}
+      errors={error && getInputErrors(error)}
+      hasConfirmationError={hasConfirmationError(error)}
+    />
   );
 }
 

@@ -1,102 +1,66 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Container,
   Segment,
   Dimmer,
   Loader,
   Grid,
-  Header,
-  Message
+  Header
 } from 'semantic-ui-react';
 import { loader } from 'graphql.macro';
-import { Mutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
 import queryString from 'query-string';
 
 import { UserContext } from '../../components/Contexts/UserContext';
-import { ConfirmTokenForm } from '../../components/Forms/ConfirmTokenForm';
-import { BasicModal } from '../../components/Modals/BasicModal';
-import { pagesSharedPropTypes } from '../pagesSharedPropTypes';
+import { ErrorMessage } from './ErrorMessage';
+import { ConfirmTokenView } from './ConfirmTokenView';
+import { ConfirmedModal } from './ConfirmModal';
+import { pagesSharedPropTypes } from '../../helpers/proptypes/pagesSharedPropTypes';
 
 const mutation = loader('../../graphql/mutations/confirmAccount.gql');
 
 export default function ConfirmPasswordPage({ history, location }) {
   const query = queryString.parse(location.search);
 
+  const { login } = useContext(UserContext);
+
+  const [mutate, { data, called, error, loading }] = useMutation(mutation);
+
+  if (query.token && !called) {
+    mutate({
+      variables: {
+        token: query.token
+      }
+    });
+  }
+
+  let renderChild;
+
+  if (called && error) {
+    renderChild = <ErrorMessage error={error} />;
+  } else if (!loading && data && data.confirmUser && data.confirmUser.token) {
+    renderChild = (
+      <ConfirmedModal data={data} history={history} login={login} />
+    );
+  } else if (!query.token) {
+    renderChild = <ConfirmTokenView loading={loading} mutate={mutate} />;
+  } else {
+    renderChild = (
+      <div>
+        <Header>Confirming Account</Header>
+        <Dimmer active inverted>
+          <Loader size="huge">Confirming Account</Loader>
+        </Dimmer>
+      </div>
+    );
+  }
+
   return (
-    <UserContext.Consumer>
-      {({ login }) => (
-        <Grid.Column mobile="16" computer="6">
-          <Container fluid>
-            <Segment>
-              <Mutation mutation={mutation}>
-                {(mutate, { data, called, error, loading }) => {
-                  if (query.token && !called) {
-                    mutate({
-                      variables: {
-                        token: query.token
-                      }
-                    });
-                  }
-
-                  if (called && error) {
-                    return (
-                      <Message
-                        icon="exclamation"
-                        header="Confirmation Token Error:"
-                        list={error.graphQLErrors.map(({ message }) => message)}
-                        negative
-                      />
-                    );
-                  }
-
-                  if (
-                    !loading &&
-                    data &&
-                    data.confirmUser &&
-                    data.confirmUser.token
-                  ) {
-                    return (
-                      <div style={{ textAlign: 'center' }}>
-                        <Header size="huge">Account Confirmed!</Header>
-                        <BasicModal
-                          buttonText="Okay"
-                          content="Account Successfully Confirmed"
-                          handleClose={() => {
-                            login(data.confirmUser);
-                            history.push('/');
-                          }}
-                          headerContent="Account Confirmed"
-                          headerIcon="user circle"
-                          opened
-                        />
-                      </div>
-                    );
-                  }
-
-                  if (!query.token) {
-                    return (
-                      <div>
-                        <Header>Confirm Account</Header>
-                        <ConfirmTokenForm mutate={mutate} loading={loading} />
-                      </div>
-                    );
-                  }
-
-                  return (
-                    <div>
-                      <Header>Confirming Account</Header>
-                      <Dimmer active inverted>
-                        <Loader size="huge">Confirming Account</Loader>
-                      </Dimmer>
-                    </div>
-                  );
-                }}
-              </Mutation>
-            </Segment>
-          </Container>
-        </Grid.Column>
-      )}
-    </UserContext.Consumer>
+    <Grid.Column mobile="16" computer="6">
+      <Container fluid>
+        <Segment>{renderChild}</Segment>
+      </Container>
+    </Grid.Column>
   );
 }
 

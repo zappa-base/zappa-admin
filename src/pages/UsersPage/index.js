@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'semantic-ui-react';
 import { TabbedRoutes } from '../../components/Tabs/TabbedRoutes';
 import { UsersTab } from './UsersTab';
-import { pagesSharedPropTypes } from '../pagesSharedPropTypes';
+import { pagesSharedPropTypes } from '../../helpers/proptypes/pagesSharedPropTypes';
 
 const panesTest = [
   {

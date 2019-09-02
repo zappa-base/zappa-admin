@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid } from 'semantic-ui-react';
 import { SignUpFormWithMutation } from '../../components/Forms/SignUpForm';
-import { pagesSharedPropTypes } from '../pagesSharedPropTypes';
+import { pagesSharedPropTypes } from '../../helpers/proptypes/pagesSharedPropTypes';
 
 export default function SignUpPage({ history, location }) {
   return (

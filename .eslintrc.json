@@ -1,5 +1,6 @@
 {
   "extends": ["react-app", "airbnb", "prettier"],
+  "plugins": ["import"],
   "rules": {
     "import/no-extraneous-dependencies": [
       "error",
@@ -11,6 +12,7 @@
     "no-console": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-one-expression-per-line": "off",
-    "react/forbid-prop-types": "off"
+    "react/forbid-prop-types": "off",
+    "semi": ["error", "always"]
   }
 }
