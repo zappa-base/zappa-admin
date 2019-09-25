@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, Grid, Segment, Message, Header } from 'semantic-ui-react';
 
 import { inputErrorsToFormErrors } from '../../../helpers/errors/inputErrorsToFormErrors';
+import { colProps } from '../../../helpers/layout/colProps';
 
 const intialState = {
   confirm: '',
@@ -16,7 +17,7 @@ export function SignUpForm({ errors, loading, onSubmit }) {
   const [state, setState] = useState(() => intialState);
 
   return (
-    <Grid.Column width="6">
+    <Grid.Column {...colProps}>
       <Segment>
         <Header as="h2">Sign Up</Header>
         <p>Welcome to Zappa Admin</p>

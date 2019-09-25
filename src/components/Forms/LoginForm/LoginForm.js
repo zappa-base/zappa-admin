@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Form, Grid, Segment, Message, Header, Icon } from 'semantic-ui-react';
 import { inputErrorsToFormErrors } from '../../../helpers/errors/inputErrorsToFormErrors';
 import { ResendConfirmationWithRouter } from '../../ResendConfirmation';
+import { colProps } from '../../../helpers/layout/colProps';
 
 const intialState = {
   email: '',
@@ -22,7 +23,7 @@ export function LoginForm({ hasConfirmationError, errors, loading, onSubmit }) {
   }, [hasConfirmationError]);
 
   return (
-    <Grid.Column width="6">
+    <Grid.Column {...colProps}>
       <Segment>
         <Header as="h2">Login</Header>
         <Form

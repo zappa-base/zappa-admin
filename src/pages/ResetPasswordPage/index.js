@@ -16,6 +16,7 @@ import { UserContext } from '../../components/Contexts/UserContext';
 import { inputErrorsToFormErrors } from '../../helpers/errors/inputErrorsToFormErrors';
 import { getInputErrors } from '../../helpers/errors/getInputErrors';
 import { pagesSharedPropTypes } from '../../helpers/proptypes/pagesSharedPropTypes';
+import { colProps } from '../../helpers/layout/colProps';
 
 const mutation = loader('../../graphql/mutations/resetPassword.gql');
 
@@ -42,7 +43,7 @@ export default function ResetPasswordPage({ location }) {
   const token = query.token || state.token;
 
   return (
-    <Grid.Column computer="6" mobile="16">
+    <Grid.Column {...colProps}>
       <Segment>
         <Header>Reset Password Form</Header>
         <Form

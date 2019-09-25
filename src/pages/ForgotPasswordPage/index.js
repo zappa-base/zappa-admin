@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/react-hooks';
 
 import { BasicModal } from '../../components/Modals/BasicModal';
 import { pagesSharedPropTypes } from '../../helpers/proptypes/pagesSharedPropTypes';
+import { colProps } from '../../helpers/layout/colProps';
 
 const mutation = loader('../../graphql/mutations/requestReset.gql');
 
@@ -14,7 +15,7 @@ export default function ForgotPasswordPage({ history }) {
   const [mutate, { loading, error }] = useMutation(mutation);
 
   return (
-    <Grid.Column computer={6} mobile={16}>
+    <Grid.Column {...colProps}>
       <Segment>
         <Form
           loading={loading}

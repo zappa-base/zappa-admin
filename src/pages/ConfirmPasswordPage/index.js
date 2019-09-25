@@ -16,6 +16,7 @@ import { ErrorMessage } from './ErrorMessage';
 import { ConfirmTokenView } from './ConfirmTokenView';
 import { ConfirmedModal } from './ConfirmModal';
 import { pagesSharedPropTypes } from '../../helpers/proptypes/pagesSharedPropTypes';
+import { colProps } from '../../helpers/layout/colProps';
 
 const mutation = loader('../../graphql/mutations/confirmAccount.gql');
 
@@ -56,7 +57,7 @@ export default function ConfirmPasswordPage({ history, location }) {
   }
 
   return (
-    <Grid.Column mobile="16" computer="6">
+    <Grid.Column {...colProps}>
       <Container fluid>
         <Segment>{renderChild}</Segment>
       </Container>
