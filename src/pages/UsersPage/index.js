@@ -1,30 +1,10 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react';
 import { TabbedRoutes } from '../../components/Tabs/TabbedRoutes';
-import { UsersTab } from './UsersTab';
 import { pagesSharedPropTypes } from '../../helpers/proptypes/pagesSharedPropTypes';
-
-const panesTest = [
-  {
-    component: UsersTab,
-    exact: true,
-    path: '',
-    text: 'Users'
-  },
-  {
-    component: () => <div>Nothing</div>,
-    path: '/edit/:id?',
-    tabPath: '/edit',
-    text: 'Edit User'
-  }
-];
+import { userPagePanes } from './userPagePanes';
 
 export default function UsersPage({ match }) {
-  return (
-    <Container fluid>
-      <TabbedRoutes baseLink={match.path} panes={panesTest} />
-    </Container>
-  );
+  return <TabbedRoutes baseLink={match.path} panes={userPagePanes} />;
 }
 
 UsersPage.propTypes = pagesSharedPropTypes;

@@ -17,7 +17,7 @@ const PanesInterface = {
 
 export function TabbedRoutes({ baseLink, panes }) {
   return (
-    <Container fluid>
+    <Container fluid textAlign="left">
       <Menu attached="top" tabular>
         {panes.map(({ exact, path, tabPath, text }) => (
           <Menu.Item

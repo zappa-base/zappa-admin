@@ -1,0 +1,10 @@
+fragment AlbumFragment on Album {
+  id
+
+  createdAt
+  catalogNumber
+  label
+  releaseDate
+  title
+  coverArtUrl
+}

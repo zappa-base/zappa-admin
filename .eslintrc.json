@@ -2,6 +2,7 @@
   "extends": ["react-app", "airbnb", "prettier"],
   "plugins": ["import"],
   "rules": {
+    "indent": ["error", 2],
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -10,9 +11,11 @@
     ],
     "import/prefer-default-export": "off",
     "no-console": "off",
+    "jsx-a11y/aria-role": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-one-expression-per-line": "off",
     "react/forbid-prop-types": "off",
+    "jsx-quotes": ["error", "prefer-double"],
     "semi": ["error", "always"]
   }
 }

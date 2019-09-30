@@ -1,0 +1,31 @@
+#import "../fragments/album.gql"
+
+query albums(
+  $page: Int
+  $sortDirection: SortDirection
+  $sortBy: String
+  $search: String
+  $limit: Int
+) {
+  albums(
+    input: {
+      page: $page
+      sortDirection: $sortDirection
+      sortBy: $sortBy
+      search: $search
+      limit: $limit
+    }
+  ) {
+    pagination {
+      page
+      sortBy
+      sortDirection
+      total
+      limit
+    }
+
+    results {
+      ...AlbumFragment
+    }
+  }
+}

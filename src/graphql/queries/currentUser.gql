@@ -1,8 +1,7 @@
+#import "../fragments/user.gql"
+
 query currentUser {
   currentUser {
-    email
-    id
-    nickname
-    role
+    ...UserFragment
   }
 }
